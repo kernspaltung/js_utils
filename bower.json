@@ -1,0 +1,22 @@
+{
+  "name": "js_utils",
+  "homepage": "https://github.com/kernspaltung/js_utils",
+  "authors": [
+    "furenku <furenku@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "moduleType": [],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "^3.1.0"
+  }
+}

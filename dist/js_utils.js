@@ -1,10 +1,34 @@
 var $ = jQuery.noConflict();
 
 function Utils(){
-	var fe = this;
-	this.test = function(selector) {
-		alert( selector )
+
+	var utils = this;
+
+	this.createNewDiv = function( args ) {
+
+	   var id = '';
+	   var classes = '';
+	   var style = '';
+		var css = false;
+
+		var newDiv = $('<div>');
+
+	   if( typeof( args ) != "undefined" ) {
+
+	      if( typeof( args.classNames ) != "undefined" ) {
+	         newDiv.attr( 'class', args.classNames );
+	      }
+	      if( typeof( args.css ) != "undefined" ) {
+				newDiv.css( args.css	 );
+	      }
+	   }
+
+		newDiv.css('box-sizing', 'border-box');
+	   return newDiv;
+
 	}
+
+
 	this.vcenter = function( selector ) {
 
 		if (typeof(selector)==='undefined')
@@ -19,18 +43,20 @@ function Utils(){
 		})
 	}
 
-	this.verticalCenter( selector ) {
+	this.verticalCenter = function( selector ) {
 
 		if (typeof(selector)==='undefined')
-			selector = '.v-center';
+		selector = '.v-center';
 
 		$( selector ).each(function(){
 			var parent = $(this);
+			parent.css({opacity:0});
 			var totalH = 0;
 			parent.children().each(function(){
 				totalH += parseInt($(this).outerHeight(true));
 			});
-			parent.css({paddingTop: ( parent.height() - totalH ) / 2 });
+			parent.css({paddingTop: ( parent.outerHeight(true) - totalH ) / 2 });
+			parent.animate({opacity:1});
 		});
 
 	}
@@ -141,23 +167,6 @@ function Utils(){
 	}
 
 
-	// this.resize = function() {
-	// 	fe.vcenter();
-	// 	fe.squareW();
-	// 	fe.squareH();
-	// 	fe.shareW();
-	// 	fe.shareH();
-	// }
-
-	// recalculate at resize
-	$(window).resize(function() {
-		fe.vcenter();
-		fe.squareW();
-		fe.squareH();
-		fe.shareW();
-		fe.shareH();
-	});
-
 
 
 	this.sameMaxH = function( elements ) {
@@ -179,5 +188,34 @@ function Utils(){
 			elements.height( maxH );
 		}
 
+	}
+
+
+	this.executeFunctionByName = function(functionName, context /*, args */) {
+		var args = [].slice.call(arguments).splice(2);
+		var namespaces = functionName.split(".");
+		var func = namespaces.pop();
+		for(var i = 0; i < namespaces.length; i++) {
+			context = context[namespaces[i]];
+		}
+		return context[func].apply(context, args);
+	}
+
+
+	// recalculate at resize
+	this.windowResizeFunctions = [];
+
+	$(window).resize(function() {
+
+		var functions = utils.windowResizeFunctions;
+
+		for( i in functions ) {
+			functions[i]();
+		}
+
+	});
+
+	this.addWindowResizeFunction = function( resizeFunction ) {
+		utils.windowResizeFunctions.push( resizeFunction );
 	}
 }
