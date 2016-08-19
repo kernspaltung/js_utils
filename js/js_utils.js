@@ -1,6 +1,6 @@
 var $ = jQuery.noConflict();
 
-function FrontEndUtils(){
+function Utils(){
 	var fe = this;
 	this.test = function(selector) {
 		alert( selector )
@@ -181,6 +181,3 @@ function FrontEndUtils(){
 
 	}
 }
-
-
-// console.log( Utils )
