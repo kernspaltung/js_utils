@@ -24,6 +24,7 @@ function Utils(){
 	   }
 
 		newDiv.css('box-sizing', 'border-box');
+
 	   return newDiv;
 
 	}
@@ -203,15 +204,24 @@ function Utils(){
 
 
 	// recalculate at resize
+	this.windowResizing = false;
 	this.windowResizeFunctions = [];
 
 	$(window).resize(function() {
+		// debounce by storing timeout in boolean check
+		if( ! utils.windowResizing ) {
+			utils.windowResizing = setTimeout(function(){
+				var functions = utils.windowResizeFunctions;
 
-		var functions = utils.windowResizeFunctions;
+				for( i in functions ) {
+					functions[i]();
+				}
 
-		for( i in functions ) {
-			functions[i]();
+				utils.windowResizing = false;
+
+			},350);
 		}
+
 
 	});
 

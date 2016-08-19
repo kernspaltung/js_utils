@@ -11,7 +11,8 @@ var newDiv = u.createNewDiv( {
    }
 });
 
-var img = $('<img>').attr('src','http://fakeimg.pl/200x150/eee/ddd?text=vcenter')
+var img = $('<img>').attr('src','http://fakeimg.pl/200x150/eee/ddd')
+img.height('15vh');
 
 newDiv.html('<h2>Vertical Center</h2>')
 newDiv.append( img )
@@ -21,12 +22,6 @@ $('body').append( newDiv );
 
 
 
-$(document).ready(function(){
+u.verticalCenter();
 
-   img.on('load',function(){
-      u.verticalCenter();
-   })
-
-   console.log("Utils: Vertical Center");
-
-})
+console.log("Utils: Vertical Center");
