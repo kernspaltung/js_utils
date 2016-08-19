@@ -19,6 +19,22 @@ function FrontEndUtils(){
 		})
 	}
 
+	this.verticalCenter( selector ) {
+
+		if (typeof(selector)==='undefined')
+			selector = '.v-center';
+
+		$( selector ).each(function(){
+			var parent = $(this);
+			var totalH = 0;
+			parent.children().each(function(){
+				totalH += parseInt($(this).outerHeight(true));
+			});
+			parent.css({paddingTop: ( parent.height() - totalH ) / 2 });
+		});
+
+	}
+
 	this.square = function( selector ) {
 
 		if (typeof(selector)==='undefined')
