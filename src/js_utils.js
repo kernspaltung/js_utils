@@ -4,6 +4,16 @@ function Utils(){
 
 	var utils = this;
 
+
+	$(document).ready(function(){
+
+		$(window).trigger('resize');
+
+	});
+
+
+	
+
 	this.createNewDiv = function( args ) {
 
 	   var id = '';
@@ -222,10 +232,11 @@ function Utils(){
 			},350);
 		}
 
-
 	});
 
 	this.addWindowResizeFunction = function( resizeFunction ) {
+
 		utils.windowResizeFunctions.push( resizeFunction );
+
 	}
 }
