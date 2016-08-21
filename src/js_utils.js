@@ -4,6 +4,11 @@ function Utils(){
 
 	var utils = this;
 
+	// recalculate at resize
+	this.windowResizing = false;
+	this.windowResizeFunctions = [];
+
+
 
 	$(document).ready(function(){
 
@@ -12,7 +17,7 @@ function Utils(){
 	});
 
 
-	
+
 
 	this.createNewDiv = function( args ) {
 
@@ -202,21 +207,6 @@ function Utils(){
 	}
 
 
-	this.executeFunctionByName = function(functionName, context /*, args */) {
-		var args = [].slice.call(arguments).splice(2);
-		var namespaces = functionName.split(".");
-		var func = namespaces.pop();
-		for(var i = 0; i < namespaces.length; i++) {
-			context = context[namespaces[i]];
-		}
-		return context[func].apply(context, args);
-	}
-
-
-	// recalculate at resize
-	this.windowResizing = false;
-	this.windowResizeFunctions = [];
-
 	$(window).resize(function() {
 		// debounce by storing timeout in boolean check
 		if( ! utils.windowResizing ) {
@@ -239,4 +229,21 @@ function Utils(){
 		utils.windowResizeFunctions.push( resizeFunction );
 
 	}
+
+
+
+
+
+
+
+	this.executeFunctionByName = function(functionName, context /*, args */) {
+		var args = [].slice.call(arguments).splice(2);
+		var namespaces = functionName.split(".");
+		var func = namespaces.pop();
+		for(var i = 0; i < namespaces.length; i++) {
+			context = context[namespaces[i]];
+		}
+		return context[func].apply(context, args);
+	}
+
 }
