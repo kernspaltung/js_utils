@@ -4,6 +4,21 @@ function Utils(){
 
 	var utils = this;
 
+	// recalculate at resize
+	this.windowResizing = false;
+	this.windowResizeFunctions = [];
+
+
+
+	$(document).ready(function(){
+
+		$(window).trigger('resize');
+
+	});
+
+
+
+
 	this.createNewDiv = function( args ) {
 
 	   var id = '';
@@ -56,7 +71,7 @@ function Utils(){
 			parent.children().each(function(){
 				totalH += parseInt($(this).outerHeight(true));
 			});
-			parent.css({paddingTop: ( parent.outerHeight(true) - totalH ) / 2 });
+			parent.css({paddingTop: (( parent.outerHeight(true) - totalH ) / 2 ) + 'px !important;'});
 			parent.animate({opacity:1});
 		});
 
@@ -192,21 +207,6 @@ function Utils(){
 	}
 
 
-	this.executeFunctionByName = function(functionName, context /*, args */) {
-		var args = [].slice.call(arguments).splice(2);
-		var namespaces = functionName.split(".");
-		var func = namespaces.pop();
-		for(var i = 0; i < namespaces.length; i++) {
-			context = context[namespaces[i]];
-		}
-		return context[func].apply(context, args);
-	}
-
-
-	// recalculate at resize
-	this.windowResizing = false;
-	this.windowResizeFunctions = [];
-
 	$(window).resize(function() {
 		// debounce by storing timeout in boolean check
 		if( ! utils.windowResizing ) {
@@ -222,10 +222,28 @@ function Utils(){
 			},350);
 		}
 
-
 	});
 
 	this.addWindowResizeFunction = function( resizeFunction ) {
+
 		utils.windowResizeFunctions.push( resizeFunction );
+
 	}
+
+
+
+
+
+
+
+	this.executeFunctionByName = function(functionName, context /*, args */) {
+		var args = [].slice.call(arguments).splice(2);
+		var namespaces = functionName.split(".");
+		var func = namespaces.pop();
+		for(var i = 0; i < namespaces.length; i++) {
+			context = context[namespaces[i]];
+		}
+		return context[func].apply(context, args);
+	}
+
 }
