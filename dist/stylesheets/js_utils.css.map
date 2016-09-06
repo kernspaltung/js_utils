@@ -1,7 +1,0 @@
-{
-"version": 3,
-"mappings": "AAAA,SAAU;EACT,OAAO,EAAC,CAAC",
-"sources": ["../../src/scss/js_utils.scss"],
-"names": [],
-"file": "js_utils.css"
-}
