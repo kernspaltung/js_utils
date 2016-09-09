@@ -23,13 +23,15 @@ function Utils(){
 
 	   var id = '';
 	   var classes = '';
-	   var style = '';
 		var css = false;
 
 		var newDiv = $('<div>');
 
 	   if( typeof( args ) != "undefined" ) {
 
+			if( typeof( args.id ) != "undefined" ) {
+	         newDiv.attr( 'id', args.id );
+	      }
 	      if( typeof( args.classNames ) != "undefined" ) {
 	         newDiv.attr( 'class', args.classNames );
 	      }
@@ -118,6 +120,7 @@ function Utils(){
 		$( selector ).each(function(){
 			$(this).outerWidth( $(this).outerHeight() );
 		});
+
 	}
 
 
