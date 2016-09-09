@@ -88,10 +88,10 @@ function Utils(){
 			console.log( $(this).width(), $(this).height() );
 
 			if( $(this).width() > 0 ) {
-				$(this).height( $(this).outerWidth() );
+				$(this).outerHeight( $(this).outerWidth() );
 			} else {
 				if( $(this).height() > 0 ) {
-					$(this).width( $(this).outerHeight() );
+					$(this).outerWidth( $(this).outerHeight() );
 				}
 			}
 
@@ -105,7 +105,7 @@ function Utils(){
 		selector = '.squareH';
 
 		$( selector ).each(function(){
-			$(this).height( $(this).outerWidth() );
+			$(this).outerHeight( $(this).outerWidth() );
 		});
 
 	}
@@ -116,7 +116,7 @@ function Utils(){
 		selector = '.squareW';
 
 		$( selector ).each(function(){
-			$(this).width( $(this).outerHeight() );
+			$(this).outerWidth( $(this).outerHeight() );
 		});
 	}
 
