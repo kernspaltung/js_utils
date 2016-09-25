@@ -21,28 +21,28 @@ function Utils(){
 
 	this.createNewDiv = function( args ) {
 
-	   var id = '';
-	   var classes = '';
+		var id = '';
+		var classes = '';
 		var css = false;
 
 		var newDiv = $('<div>');
 
-	   if( typeof( args ) != "undefined" ) {
+		if( typeof( args ) != "undefined" ) {
 
 			if( typeof( args.id ) != "undefined" ) {
-	         newDiv.attr( 'id', args.id );
-	      }
-	      if( typeof( args.classNames ) != "undefined" ) {
-	         newDiv.attr( 'class', args.classNames );
-	      }
-	      if( typeof( args.css ) != "undefined" ) {
+				newDiv.attr( 'id', args.id );
+			}
+			if( typeof( args.classNames ) != "undefined" ) {
+				newDiv.attr( 'class', args.classNames );
+			}
+			if( typeof( args.css ) != "undefined" ) {
 				newDiv.css( args.css	 );
-	      }
-	   }
+			}
+		}
 
 		newDiv.css('box-sizing', 'border-box');
 
-	   return newDiv;
+		return newDiv;
 
 	}
 
@@ -237,7 +237,20 @@ function Utils(){
 
 
 
+	this.isElementInView = function (container, element, fullyInView) {
+		var pageTop = container.scrollTop();
+		var pageBottom = pageTop + container.height();
+		var elementTop = element.offset().top;
+		var elementBottom = elementTop + element.height();
 
+		if (fullyInView === true) {
+			return ((pageTop < elementTop) && (pageBottom > elementBottom));
+		} else {
+			return ((elementBottom <= pageBottom) && (elementTop >= pageTop));
+		}
+	}
+
+	
 
 	this.executeFunctionByName = function(functionName, context /*, args */) {
 		var args = [].slice.call(arguments).splice(2);
