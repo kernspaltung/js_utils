@@ -47,36 +47,35 @@ function Utils(){
 	}
 
 
-	this.vcenter = function( selector ) {
+	// u.responsiveImageCallback = 0;
+	this.addResponsiveImageCallback = function( callback ) {
 
-		if (typeof(selector)==='undefined')
-		selector = '.vcenter';
+		utils.responsiveImageCallback = callback;
 
-		$( selector ).each(function(){
-			item = $(this);
-			p = item.parent();
-			mT = ( p.height() - item.height() ) / 2;
-			item.css({ marginTop: mT });
-
-		})
 	}
 
-	this.verticalCenter = function( selector ) {
+	this.responsiveImageCallback = 0;
+	this.responsiveImage = function(selector){
 
-		if (typeof(selector)==='undefined')
-		selector = '.v-center';
+		if(typeof(selector)=="undefined") {
+			selector = 'img.responsive-image';
+		}
 
-		$( selector ).each(function(){
-			var parent = $(this);
-			parent.css({opacity:0});
-			var totalH = 0;
-			parent.children().each(function(){
-				totalH += parseInt($(this).outerHeight(true));
-			});
-			parent.css({paddingTop: (( parent.outerHeight(true) - totalH ) / 2 ) });
-			parent.stop().animate({ opacity: 1 });
-		});
+	   $(selector).each(function(){
 
+	      if( $(window).width() < 640) size = 'xs'
+	      else if( $(window).width() >= 640 && $(window).width() < 960 ) size = 'sm'
+	      else if( $(window).width() >= 960 && $(window).width() < 1200 ) size = 'md'
+	      else if( $(window).width() >= 640 && $(window).width() < 1440 ) size = 'lg'
+	      else size = 'xl'
+	      $(this).attr('src',$(this).data(size))
+
+			if( typeof(utils.responsiveImageCallback) != "undefined" ) {
+	      	utils.responsiveImageCallback( $(this) )
+			}
+
+
+	   })
 	}
 
 	this.square = function( selector ) {
@@ -209,6 +208,37 @@ function Utils(){
 
 	}
 
+	this.vcenter = function( selector ) {
+
+		if (typeof(selector)==='undefined')
+		selector = '.vcenter';
+
+		$( selector ).each(function(){
+			item = $(this);
+			p = item.parent();
+			mT = ( p.height() - item.height() ) / 2;
+			item.css({ marginTop: mT });
+
+		})
+	}
+
+	this.verticalCenter = function( selector ) {
+
+		if (typeof(selector)==='undefined')
+		selector = '.v-center';
+
+		$( selector ).each(function(){
+			var parent = $(this);
+			parent.css({opacity:0});
+			var totalH = 0;
+			parent.children().each(function(){
+				totalH += parseInt($(this).outerHeight(true));
+			});
+			parent.css({paddingTop: (( parent.outerHeight(true) - totalH ) / 2 ) });
+			parent.stop().animate({ opacity: 1 });
+		});
+
+	}
 
 	$(window).resize(function() {
 		// debounce by storing timeout in boolean check
@@ -250,7 +280,7 @@ function Utils(){
 		}
 	}
 
-	
+
 
 	this.executeFunctionByName = function(functionName, context /*, args */) {
 		var args = [].slice.call(arguments).splice(2);

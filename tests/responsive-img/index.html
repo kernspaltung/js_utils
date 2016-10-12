@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+   <title>Responsive Images</title>
+
+   <link rel="stylesheet" href="../../dist/stylesheet/js_utils.min.css">
+</head>
+<body>
+
+   <h1>image by Screen size</h1>
+   <img
+   src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+   alt="responsive image"
+   data-xs="img/test-xs.png"
+   data-sm="img/test-sm.png"
+   data-md="img/test-md.png"
+   data-lg="img/test-lg.png"
+   data-xl="img/test-xl.png"
+   class="responsive-image">
+
+</body>
+<script src="http://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script src="../../src/js_utils.js"></script>
+<script type="text/javascript">
+
+u = new Utils();
+
+jQuery(document).ready(function($){
+
+   var callbackFunc = function(img) { console.log( img.attr('src') ) }
+
+   u.addResponsiveImageCallback( callbackFunc )
+
+   u.addWindowResizeFunction(function() { u.responsiveImage('img.responsive-image'); })
+
+ u.responsiveImage('img.responsive-image');
+
+   $(window).trigger('resize')
+
+});
+
+
+</script>
+</html>

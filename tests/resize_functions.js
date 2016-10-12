@@ -7,7 +7,6 @@ var newDiv = u.createNewDiv( {
       height: '50vh',
       border: '1px solid #def',
       textAlign: 'center',
-
    }
 });
 
